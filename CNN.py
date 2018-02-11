@@ -1,10 +1,18 @@
+"""
+
+FIRST ATTEMPT EVER AT DOING CNN, THIS IS FOR REVIEW PURPOSES AS THE CODE ISN'T PRATICALLY USABLE
+
+"""
+
 import numpy as np
 import random
 import ast
 import time
 from sys import getsizeof
+# This was for debugging purposes
 np.set_printoptions(threshold=np.nan)
 
+# Activation function I used
 def relu(x):
     return np.maximum(0, x)
 
@@ -17,6 +25,7 @@ def sigmoid(x):
 def sigmoidprime(x):
     return np.exp(-x) / ((1 + np.exp(-x))**2)
 
+#attempt at dot multiplication with 3d array. Unused
 def dot(a, b):
     if len(a[0]) != len(b):
         raise ValueError("Wrong Dimension")
@@ -29,13 +38,14 @@ def dot(a, b):
     return temp
 
 
-
+## Raw data of 20 images, 10 dogs and 10 cats. Encoded with Image_to_input.py
 with open("img_data.txt", "r") as f:
     trng_input = ast.literal_eval(f.readline().rstrip())
 
 ##with open("trng_output.txt", "r") as f:
 ##    trng_output = ast.literal_eval(f.readline().rstrip())
 
+## One hot type of output (for cats and dogs in this attempt)
 trng_output = [[1, 0], [0, 1]]
 
 trng_input = np.array(tuple(trng_input), dtype=float)
@@ -46,13 +56,18 @@ trng_output = np.array(tuple(trng_output), dtype=float)
 class Convolutional_Neural_Net():
     def __init__(self, data_input):
         self.data_input = data_input
+        # Number of kernel for each layer, to add a layer you only have to add a number
         self.kernel = (20, 15, 10)
+        # Pooling size, the 2 first digits are the window size, the third is the sliding pixel number
         self.Psize = (3,3,2)
+        # Kernel size, the 2 first digits are the window size, the third is the sliding pixel number
         self.Ksize = (3,3,2)
+        # Learning rate
         self.LR = 0.001
         self.kernelinit()
 
     def randomweight(self, n):
+        # Creating kernel with positive and negative number.
         output = []
         pos_neg = [-1, 1]
         for i in xrange(n):
@@ -60,6 +75,7 @@ class Convolutional_Neural_Net():
         return output
 
     def kernelinit(self):
+        # Initializing all the kernels.
         self.Kweights = []
         for n in xrange(sum(self.kernel)):
             temp = []
