@@ -58,9 +58,9 @@ class Convolutional_Neural_Net():
         self.data_input = data_input
         # Number of kernel for each layer, to add a layer you only have to add a number
         self.kernel = (20, 15, 10)
-        # Pooling size, the 2 first digits are the window size, the third is the sliding pixel number
+        # Pooling size, the 2 first digits are the window size, the 3rd is the sliding pixel number.
         self.Psize = (3,3,2)
-        # Kernel size, the 2 first digits are the window size, the third is the sliding pixel number
+        # Kernel size, the 2 first digits are the window size, the 3rd is the sliding pixel number.
         self.Ksize = (3,3,2)
         # Learning rate
         self.LR = 0.001
@@ -86,6 +86,7 @@ class Convolutional_Neural_Net():
         self.Kweights = [self.Kweights[sum(self.kernel[:i]):sum(self.kernel[:i])+self.kernel[i]] for i in xrange(len(self.kernel))]
     
     def convolution(self, Kindex, img):
+        # Forward convolution of all the input data
         convolutionned = []
         for i in xrange(len(img)):
             for K in xrange(self.kernel[Kindex]):
