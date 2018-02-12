@@ -25,7 +25,7 @@ def sigmoid(x):
 def sigmoidprime(x):
     return np.exp(-x) / ((1 + np.exp(-x))**2)
 
-#attempt at dot multiplication with 3d array. Unused
+# Attempt at dot multiplication with 3d array. Unused
 def dot(a, b):
     if len(a[0]) != len(b):
         raise ValueError("Wrong Dimension")
@@ -56,7 +56,7 @@ trng_output = np.array(tuple(trng_output), dtype=float)
 class Convolutional_Neural_Net():
     def __init__(self, data_input):
         self.data_input = data_input
-        # Number of kernel for each layer, to add a layer you only have to add a number
+        # Number of kernel for each layer
         self.kernel = (20, 15, 10)
         # Pooling size, the 2 first digits are the window size, the 3rd is the sliding pixel number.
         self.Psize = (3,3,2)
@@ -101,6 +101,7 @@ class Convolutional_Neural_Net():
         return convolutionned
 
     def activation(self, img):
+        # Activation function
         activated = []
         for i in xrange(len(img)):
             activated.append(relu(img[i]))
@@ -108,6 +109,7 @@ class Convolutional_Neural_Net():
         return activated
 
     def activation_prime(self, img):
+        # Activation function derivative for backpropagation
         activated = []
         for i in xrange(len(img)):
             activated.append(reluprime(img[i]))
@@ -115,6 +117,7 @@ class Convolutional_Neural_Net():
         return activated
 
     def pooling(self, img):
+        # Forward pooling of all the input data
         pooled = []
         for i in xrange(len(img)):
             output = [[] for _ in xrange(0, img[i].shape[0], self.Psize[2])]
@@ -127,6 +130,7 @@ class Convolutional_Neural_Net():
         return pooled
 
     def reduction(self):
+        # Manual forward propagation
         self.img_num = len(self.data_input)
         self.C = []
         self.A = []
