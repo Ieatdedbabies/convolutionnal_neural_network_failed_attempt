@@ -130,7 +130,7 @@ class Convolutional_Neural_Net():
         return pooled
 
     def reduction(self):
-        # Manual forward propagation
+        # Manual forward propagation.
         self.img_num = len(self.data_input)
         self.C = []
         self.A = []
