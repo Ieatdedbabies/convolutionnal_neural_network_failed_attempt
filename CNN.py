@@ -153,11 +153,15 @@ class Convolutional_Neural_Net():
         ### 1D array ###
         self.cleaned = np.array([np.array(self.A[-1][i]).flatten().tolist() for i in xrange(self.img_num)])
 
+        
+# Those were test from reverse pooling, as I said I am not editing the code so I won't remove it.
 ##a = [CNN.A[-1][0][0].flatten().tolist().index(x) for x in CNN.P[-1][0][0].flatten()]
 ##a = [[i/CNN.A[-1][0][0].shape[0], i%CNN.A[-1][0][0].shape[0]] for i in a]
 ##np.where(CNN.C[-1][0][0][:,:,None]==CNN.P[-1][0][0][CNN.P[-1][0][0]!=0])[:-1]
 
     def costFunctionPrime(self):
+        # Backpropagation math, comming from whelchs lab video of backpropagation and edited to work with convolutionnal neural network.
+        # I forgot precisely how it worked so I can't detail THIS code, in my other attempt it is more clear.
         self.delta = [[] for _ in xrange(len(self.kernel))]
         self.DcostDw = [[] for _ in xrange(len(self.kernel))]
         
